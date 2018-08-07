@@ -1,19 +1,18 @@
 const user = {
   state: {
-
+    num: 1,
+    age: 30
   },
 
-  getters: {
-
-  },
+  getters: {},
 
   mutations: {
-
+    changeAge: (state, newAge) => {
+      state.age = newAge;
+    }
   },
 
-  actions: {
-
-  }
+  actions: {}
 };
 
 export default user;
