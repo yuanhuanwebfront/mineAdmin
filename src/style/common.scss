@@ -1,0 +1,14 @@
+$mainColor: #fff;
+$bgColor: #4AA3FF;
+$tipColor: #04A9FB;
+$dangerColor: #f56c6c;
+
+@mixin abCenter($width, $height){
+    position: absolute;
+    width: $width;
+    height: $height;
+    left: 50%;
+    top: 50%;
+    margin-left: -($width / 2);
+    margin-top: -($height / 2);
+}
