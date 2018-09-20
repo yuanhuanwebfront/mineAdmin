@@ -10,7 +10,7 @@ const SIDEBAR_CONFIG = {
     },
 
     mutations: {
-        changePath (newPath){
+        changePath (state, newPath){
             state.sidebarPath = newPath;
         }
     },

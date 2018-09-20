@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-cloak>
         <!--    头部  -->
         <el-row :gutter="20">
             <el-col :span="3">
@@ -14,7 +14,7 @@
         <el-table border class="myTable" :data="tableData"
                   stype="width: 100%" highlight-current-row>
             <el-table-column prop="id" label="编号" width="80"></el-table-column>
-            <el-table-column prop="sort_order" label="排序" width="80"></el-table-column>
+            <el-table-column prop="sort_order" label="排序" width="60"></el-table-column>
             <el-table-column prop="session_name" label="课程名称" width="180"></el-table-column>
             <el-table-column label="开课时间" width="150">
                 <template slot-scope="scope">
@@ -82,6 +82,7 @@
             this.getList(1);
         },
         methods: {
+
             getList(page) {
                 let params = {
                     page: page || 1,

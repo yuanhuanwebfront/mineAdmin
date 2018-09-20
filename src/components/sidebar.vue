@@ -1,7 +1,7 @@
 <template>
 
     <el-menu class="menu-area" :collapse="sideBarCollapse"
-             :unique-opened="isUniqOpen" default-active="/session/list"
+             :unique-opened="isUniqOpen" :default-active="activePath"
              text-color="#333333" active-text-color="#04A9FB" :router="isRouteUse">
         <el-submenu v-for="config in sidebarConfig" index="1">
             <template slot="title">
@@ -34,10 +34,17 @@
         },
 
         methods: {
+
             toggleCollapse() {
                 this.sideBarCollapse = !this.sideBarCollapse;
             }
         },
+
+        computed: {
+            activePath (){
+                return this.$store.state.SIDEBAR.sidebarPath || "/session/list"
+            }
+        }
 
     }
 

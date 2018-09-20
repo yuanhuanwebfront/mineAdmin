@@ -34,7 +34,7 @@ const ALL_URL = {
     // baseUrl: 'http://115.29.202.161:8200/appadmin/'
 };
 
-const TIME_OUT = 5000;
+const TIME_OUT = 50000;
 
 axios.defaults.baseURL = ALL_URL.baseUrl;
 

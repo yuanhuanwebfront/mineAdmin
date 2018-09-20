@@ -34,7 +34,7 @@ let $http = {
         })
 
     }
-    
+
 };
 
 export default $http;

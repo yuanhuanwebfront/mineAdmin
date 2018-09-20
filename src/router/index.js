@@ -43,6 +43,12 @@ myRouter.beforeEach((to, from, next) => {
     }
 });
 
+myRouter.afterEach(to => {
+    let _this = myRouter.app;
+    document.title = to.meta.title;
+    _this.$store.commit('changePath', to.path);
+});
+
 
 
 export default myRouter;
