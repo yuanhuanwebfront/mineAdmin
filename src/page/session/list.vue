@@ -13,6 +13,18 @@
         <!--    表格  -->
         <el-table border class="myTable" :data="tableData"
                   stype="width: 100%" highlight-current-row>
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <el-form label-position="left" inline>
+                        <el-form-item label="课程渠道:">
+                            <span>{{props.row.channel_desc}}</span>
+                        </el-form-item>
+                        <el-form-item label="课程费用:">
+                            <span>{{props.row.price}}</span>
+                        </el-form-item>
+                    </el-form>
+                </template>
+            </el-table-column>
             <el-table-column prop="id" label="编号" width="80"></el-table-column>
             <el-table-column prop="sort_order" label="排序" width="60"></el-table-column>
             <el-table-column prop="session_name" label="课程名称" width="180"></el-table-column>
@@ -31,7 +43,6 @@
                     <img :src="scope.row.image_pad" width="100">
                 </template>
             </el-table-column>
-            <el-table-column prop="price" label="课程费用" width="100"></el-table-column>
             <el-table-column label="报名/最大人数" width="120">
                 <template slot-scope="scope">
                     {{scope.row.member_count + '/' + scope.row.max_member}}

@@ -33,6 +33,13 @@ let $http = {
             commonHandle(res, callback);
         })
 
+    },
+
+    commonReq(method, url, param, callback){
+        let params = method === 'get' ? {params: param} : qs.stringify(data);
+        requestInstance[method](url, params).then(res => {
+            commonHandle(res, callback);
+        })
     }
 
 };

@@ -42,7 +42,7 @@
 
         computed: {
             activePath (){
-                return this.$store.state.SIDEBAR.sidebarPath || "/session/list"
+                return this.$store.state.SIDEBAR.sidebarPath
             }
         }
 

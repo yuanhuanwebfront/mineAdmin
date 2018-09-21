@@ -2,22 +2,33 @@ const SIDEBAR_CONFIG = {
 
     state: {
         sidebarPath: "",
+        breadcrumb: [],
         showSideBar: true
     },
 
     getters: {
-
-    },
-
-    mutations: {
-        changePath (state, newPath){
-            state.sidebarPath = newPath;
+        getBreadCrumbList(state) {
+            return state.breadcrumb.map(({meta, path}) => {
+                return {
+                    title: meta.title,
+                    path: path || '/'
+                }
+            })
         }
     },
 
-    action: {
+    mutations: {
 
-    }
+        changePath(state, newPath) {
+            state.sidebarPath = newPath;
+        },
+
+        changeBreadCrumb(state, newArr) {
+            state.breadcrumb = newArr;
+        }
+    },
+
+    action: {}
 
 };
 

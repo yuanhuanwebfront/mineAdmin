@@ -42,7 +42,7 @@
             </el-table-column>
         </el-table>
 
-        <el-pagination background style="margin: 20px 0;" :page-sizes="[10, 20, 50, 100]"
+        <el-pagination background style="margin: 20px 0;"
                        :page-size="pagination.pageSize"
                        layout="total, prev, pager, next, jumper" @current-change="getList"
                        :total="pagination.total">

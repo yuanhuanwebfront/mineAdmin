@@ -12,7 +12,7 @@ body .el-table th.gutter{
     align-items: center;
 }
 .myTable {
-    margin-top: 30px;
+    margin: 30px 0;
     border: 1px solid #f1f1f1;
 }
 .danger{color: #f56c6c;}

@@ -1,4 +1,5 @@
 const SESSION_INDEX = 'sessionManage';
+const ORDER_INDEX = 'orderManage';
 
 
 const sessionRoutes = {
@@ -17,4 +18,17 @@ const sessionRoutes = {
     }]
 };
 
-export default [sessionRoutes];
+const orderRoutes = {
+    mainTitle: '订单管理',
+    mainIndex: ORDER_INDEX,
+    iconName: 'el-icon-document',
+    childrenRoutes: [{
+        path: '/order/dailyList',
+        name: '每日订单列表'
+    },{
+        path: '/order/allOrderList',
+        name: '训练营订单汇总'
+    }]
+};
+
+export default [sessionRoutes, orderRoutes];
