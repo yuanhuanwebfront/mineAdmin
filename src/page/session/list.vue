@@ -3,7 +3,7 @@
         <!--    头部  -->
         <el-row :gutter="20">
             <el-col :span="3">
-                <el-button type="primary" icon="el-icon-plus">创建课程</el-button>
+                <el-button @click="createSession" type="primary" icon="el-icon-plus">创建课程</el-button>
             </el-col>
             <el-col :span="4">
                 <el-button type="primary" icon="el-icon-plus">创建课程H5</el-button>
@@ -100,6 +100,10 @@
                     session_type: 1
                 };
                 this.$http.getList('o2_yoga', params, this.handleList);
+            },
+
+            createSession(){
+                this.$router.push('/session/new');
             },
 
             handleList(data) {

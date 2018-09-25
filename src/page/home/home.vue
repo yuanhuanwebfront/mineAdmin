@@ -42,7 +42,7 @@
 
     .main-area{
         height: 100%;
-        background: #f3f3f3;
+        background: #fcfcfc;
     }
     .main-title{
         font-size: 24px;

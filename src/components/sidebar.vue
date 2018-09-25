@@ -3,7 +3,7 @@
     <el-menu class="menu-area" :collapse="sideBarCollapse"
              :unique-opened="isUniqOpen" :default-active="activePath"
              text-color="#333333" active-text-color="#04A9FB" :router="isRouteUse">
-        <el-submenu v-for="config in sidebarConfig" index="1">
+        <el-submenu v-for="config in sidebarConfig" :index="config.mainIndex">
             <template slot="title">
                 <i :class="config.iconName"></i>
                 <span>{{config.mainTitle}}</span>

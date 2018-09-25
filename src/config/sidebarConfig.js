@@ -1,5 +1,6 @@
 const SESSION_INDEX = 'sessionManage';
 const ORDER_INDEX = 'orderManage';
+const OPERATE_INDEX = 'operateManage';
 
 
 const sessionRoutes = {
@@ -31,4 +32,17 @@ const orderRoutes = {
     }]
 };
 
-export default [sessionRoutes, orderRoutes];
+const operateRoutes = {
+    mainTitle: '运营支持',
+    mainIndex: OPERATE_INDEX,
+    iconName: 'el-icon-document',
+    childrenRoutes: [{
+        path: '/operate/bannerTagList',
+        name: 'banner标签列表'
+    },{
+        path: '/operate/wechatBannerList',
+        name: '微信banner配置'
+    }]
+};
+
+export default [sessionRoutes, orderRoutes, operateRoutes];
