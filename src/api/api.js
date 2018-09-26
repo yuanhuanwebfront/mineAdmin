@@ -1,6 +1,6 @@
 import requestInstance from './config';
 import {Message} from 'element-ui';
-import qs from 'querystring'
+import $ from 'jquery';
 
 
 function commonHandle(res, cb){
@@ -14,8 +14,9 @@ function commonHandle(res, cb){
     }
 }
 
-
 let $http = {
+
+    uploadUrl: requestInstance._upLoadUrl,
 
     login (data, callback){
         requestInstance.post('login/login', qs.stringify(data)).then(res => {
@@ -35,8 +36,20 @@ let $http = {
 
     },
 
+    create(nameSpace, params, callback){
+        requestInstance.post(`${nameSpace}/create`, $.param(params)).then(res => {
+            commonHandle(res, callback);
+        })
+    },
+
+    delete(nameSpace, params, callback){
+        requestInstance.post(`${nameSpace}/delete`, $.param(params)).then(res => {
+            commonHandle(res, callback);
+        })
+    },
+
     commonReq(method, url, param, callback){
-        let params = method === 'get' ? {params: param} : qs.stringify(data);
+        let params = method === 'get' ? {params: param} : $.param(param);
         requestInstance[method](url, params).then(res => {
             commonHandle(res, callback);
         })

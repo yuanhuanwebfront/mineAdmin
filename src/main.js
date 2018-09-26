@@ -18,8 +18,12 @@ import elementUi from 'element-ui';
 import 'normalize.css'
 import 'element-ui/lib/theme-chalk/index.css';
 import "./style/reset.css";
+import "./style/element-reset.css";
 
-Vue.use(elementUi);
+
+Vue.use(elementUi, {
+    size: 'small'
+});
 
 new Vue({
     el: '#app',

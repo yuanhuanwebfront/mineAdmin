@@ -17,16 +17,21 @@ body .el-table th.gutter{
 }
 .danger{color: #f56c6c;}
 
+
+.margin-bottom-20{margin-bottom: 20px;}
+
+
+
+.form-content{
+    margin-top: 30px;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #fff;
+}
+img.desc{
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
 /*  reset element style */
-.el-table th, .el-table td{
-    text-align: center;
-    padding: 7px 0;
-    color: #333;
-    font-size: 13px;
-}
-.el-main{
-    padding: 0;
-}
-.el-input{
-    width: 300px;
-}

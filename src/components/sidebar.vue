@@ -1,8 +1,8 @@
 <template>
 
-    <el-menu class="menu-area" :collapse="sideBarCollapse"
+    <el-menu class="menu-area" :collapse="sideBarCollapse" background-color="#545c64"
              :unique-opened="isUniqOpen" :default-active="activePath"
-             text-color="#333333" active-text-color="#04A9FB" :router="isRouteUse">
+             text-color="#eee" active-text-color="#ffd04b" :router="isRouteUse">
         <el-submenu v-for="config in sidebarConfig" :index="config.mainIndex">
             <template slot="title">
                 <i :class="config.iconName"></i>
@@ -27,7 +27,7 @@
         data() {
             return {
                 sideBarCollapse: false,
-                isUniqOpen: true,
+                isUniqOpen: false,
                 isRouteUse: true,
                 sidebarConfig: routesConfig
             }
@@ -54,17 +54,18 @@
     @import '../style/common';
 
     .menu-area {
+        box-sizing: border-box;
         max-width: 250px;
         margin: 30px 0 30px 10px;
-        border-radius: 5px;
+        border-radius: 10px;
         box-shadow: 0 0 2px 2px #e5e5e5;
         .collapse {
             padding: 5px 0;
             text-align: center;
             background: $tipColor;
             color: #fff;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
     }
 </style>

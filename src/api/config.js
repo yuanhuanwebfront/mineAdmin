@@ -72,5 +72,6 @@ let requestInstance = axios.create({
 requestInstance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 requestInstance.interceptors.request.use(beforeRequest);
 requestInstance.interceptors.response.use(finishRequest);
+requestInstance._upLoadUrl = ALL_URL.baseUrl + 'common/upload';
 
 export default requestInstance;
