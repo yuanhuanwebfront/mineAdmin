@@ -19,14 +19,14 @@ let $http = {
     uploadUrl: requestInstance._upLoadUrl,
 
     login (data, callback){
-        requestInstance.post('login/login', qs.stringify(data)).then(res => {
+        requestInstance.post('login/login', $.param(data)).then(res => {
             commonHandle(res, callback);
         })
     },
 
     getList (nameSpace, params, callback){
 
-        const PAGE_SIZE = 10;
+        const PAGE_SIZE = 20;
 
         params.page_size = params.page_size || PAGE_SIZE;
 

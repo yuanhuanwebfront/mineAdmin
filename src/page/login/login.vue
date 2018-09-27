@@ -63,6 +63,9 @@
             }
             .input-area {
                 margin-top: 30px;
+                .el-input{
+                	width: 300px;
+                }
             }
             .login-btn {
                 display: block;

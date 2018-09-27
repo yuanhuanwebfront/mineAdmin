@@ -5,15 +5,15 @@ let sessionRoutes = [
         meta: {
             title: "课程列表"
         },
-        component: () => import('../../page/session/list.vue')
-    },
-    {
-        name: 'sessionList',
-        path: 'session/new',
-        meta: {
-            title: "创建课程"
-        },
-        component: () => import('../../page/session/sessionNew.vue')
+        component: () => import('../../page/session/list.vue'),
+        children: [{
+            name: 'sessionNew',
+            path: 'sessionNew',
+            meta: {
+                title: "创建课程"
+            },
+            component: () => import('../../page/session/sessionNew.vue')
+        }]
     },
     {
         name: 'sessionCategoryList',

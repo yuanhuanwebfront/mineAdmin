@@ -1,6 +1,6 @@
 <template>
 
-    <el-menu class="menu-area" :collapse="sideBarCollapse" background-color="#545c64"
+    <el-menu class="menu-area" :collapse="sideBarCollapse" background-color="#2d313a"
              :unique-opened="isUniqOpen" :default-active="activePath"
              text-color="#eee" active-text-color="#ffd04b" :router="isRouteUse">
         <el-submenu v-for="config in sidebarConfig" :index="config.mainIndex">
@@ -56,7 +56,7 @@
     .menu-area {
         box-sizing: border-box;
         max-width: 250px;
-        margin: 30px 0 30px 10px;
+        margin: 30px 0 30px 10px !important;
         border-radius: 10px;
         box-shadow: 0 0 2px 2px #e5e5e5;
         .collapse {

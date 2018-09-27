@@ -29,6 +29,9 @@ const orderRoutes = {
     },{
         path: '/order/allOrderList',
         name: '训练营订单汇总'
+    },{
+        path: '/order/orderSource',
+        name: '课程购买来源统计'
     }]
 };
 

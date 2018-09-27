@@ -4,7 +4,7 @@
             <el-aside v-if="!$route.meta.hiddenBar">
                 <sideBar></sideBar>
             </el-aside>
-            <el-main :style="{'margin': $route.meta.hiddenBar ? '0' : '28px 20px 0 0'}">
+            <el-main style="box-sizing: border-box;" :style="{'margin': $route.meta.hiddenBar ? '0' : '28px 10px 0 0'}">
                 <el-breadcrumb v-if="!$route.meta.hiddenBar" separator-class="el-icon-arrow-right" class="breadcrumb-area">
                     <el-breadcrumb-item v-for="item in breadcrumbList" :to="{path: item.path}">{{item.title}}</el-breadcrumb-item>
                 </el-breadcrumb>

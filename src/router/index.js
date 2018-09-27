@@ -20,6 +20,7 @@ let myRouter = new Router({
             meta: {
                 title: '首页'
             },
+            redirect: 'session/list',
             component: () => import('../page/home/home.vue'),
             children: [
                 ...sessionRoutes,

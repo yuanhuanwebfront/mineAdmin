@@ -10,22 +10,22 @@
 
             <el-row :gutter="20">
                 <el-col :span="4">
-                    <el-select v-model="searchParams.deviceInfo" size="small" placeholder="请选择设备类型">
+                    <el-select clearable v-model="searchParams.deviceInfo" size="small" placeholder="请选择设备类型">
                         <el-option v-for="(val, key) in deviceInfo" :key="key" :label="val" :value="key"></el-option>
                     </el-select>
                 </el-col>
                 <el-col :span="4">
-                    <el-select v-model="searchParams.screenType" size="small" placeholder="请选择屏幕类型">
+                    <el-select clearable v-model="searchParams.screenType" size="small" placeholder="请选择屏幕类型">
                         <el-option v-for="(val, key) in screenType" :key="key" :label="val" :value="key"></el-option>
                     </el-select>
                 </el-col>
                 <el-col :span="4">
-                    <el-select v-model="searchParams.status" size="small" placeholder="请选择状态">
+                    <el-select clearable v-model="searchParams.status" size="small" placeholder="请选择状态">
                         <el-option v-for="(val, key) in statusInfo" :key="key" :label="val" :value="key"></el-option>
                     </el-select>
                 </el-col>
                 <el-col :span="4">
-                    <el-button type="primary" icon="el-icon-search" size="small">搜索</el-button>
+                    <el-button type="primary" icon="el-icon-search" size="small" @click="search">搜索</el-button>
                 </el-col>
             </el-row>
 
@@ -108,6 +108,10 @@
                 vm.$http.commonReq('get', 'top/webchatList', vm.searchParams, data => {
                     vm.handleList(data);
                 })
+            },
+
+            search(){
+                this.getList(1);
             },
 
             handleList(data){
