@@ -30,8 +30,7 @@ body .el-table th.gutter{
     background: #fff;
 }
 img.desc{
-    border: 1px solid #ccc;
-    margin-top: 10px;
+    margin-left: 40px;
 }
 
 /*  reset element style */

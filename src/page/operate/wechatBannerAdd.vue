@@ -35,8 +35,9 @@
             </el-form-item>
 
             <el-form-item label="上传图片: " prop="image">
-                <img-upload @uploadSuccess="uploadImage"></img-upload>
-                <img class="desc" :src="sendParams.image" width="150">
+                <img-upload @uploadSuccess="uploadImage">
+                    <img class="desc" :src="sendParams.image" width="150">
+                </img-upload>
             </el-form-item>
 
             <el-form-item label="开始时间: " prop="begin_time">
@@ -51,7 +52,6 @@
                 <el-button type="primary" @click="createBanner">确定</el-button>
                 <el-button type="danger" @click="cancel">取消</el-button>
             </el-form-item>
-
 
         </el-form>
     </div>

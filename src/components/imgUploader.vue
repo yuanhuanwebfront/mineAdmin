@@ -1,9 +1,10 @@
 <template>
-    <div>
+    <div class="yh-img-uploader-container">
         <el-upload :action="actionUrl" :headers="actionHeader" :data="actionData" :on-success="uploadSuccess"
                    :before-upload="beforeUploadFile" :show-file-list="false">
             <el-button :loading="isUploading" list-type="picture" icon="el-icon-upload" size="small" type="primary">点击上传</el-button>
         </el-upload>
+        <slot></slot>
     </div>
 </template>
 
@@ -25,7 +26,7 @@
                 actionData: {
                     author: 'rexhang'
                 },
-                isUploading: false
+                isUploading: false,
             }
         },
 
@@ -53,5 +54,8 @@
 </script>
 
 <style scoped>
-
+.yh-img-uploader-container{
+    display: flex;
+    align-items: flex-start;
+}
 </style>

@@ -1,19 +1,74 @@
 <template>
     <div class="form-content">
-        <el-form ref="form" label-width="140px">
+        <el-form ref="form" label-width="200px">
+
             <!--    投放渠道    channel_type    -->
             <el-form-item label="投放渠道：">
                 <el-select v-model="sendParams.channel_type">
-                    <el-option v-for="(val, key) in globalConfig.channelList" :key="key" :label="val" :value="key"></el-option>
+                    <el-option v-for="(val, key) in globalConfig.channelList" :key="key" :label="val"
+                               :value="key"></el-option>
                 </el-select>
             </el-form-item>
 
             <!--    课程分类    category_id -->
             <el-form-item label="课程分类：">
                 <el-select v-model="sendParams.category_id">
-                    <el-option v-for="item in globalConfig.categoryList" :key="item.id" :label="item.category_name" :value="item.id"></el-option>
+                    <el-option v-for="item in globalConfig.categoryList" :key="item.id" :label="item.category_name"
+                               :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
+
+            <!--    投放渠道为yoga内部显示的元素    -->
+            <div v-show="sendParams.channel_type === '1'">
+                <!--    课程投放渠道  app_source_array    -->
+                <el-form-item label="课程投放渠道：">
+                    <el-checkbox-group v-model="sendParams.app_source_array">
+                        <el-checkbox v-for="(val, key) in globalConfig.appSource" :label="val" :key="key">{{val}}
+                        </el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
+
+                <!--    优惠券与瑜币共用    mutex_type  -->
+                <el-form-item label="优惠券与瑜币共用：">
+                    <el-switch v-model="sendParams.mutex_type" :width="50" active-text="可共用"
+                               inactive-text="不可共用"></el-switch>
+                </el-form-item>
+
+                <!--    课程标签    tag_ids -->
+                <el-form-item label="课程标签：">
+                    <el-checkbox v-for="item in globalConfig.tagList" :label="item.tag_name" :key="item.id">{{item.tag_name}}</el-checkbox>
+                </el-form-item>
+
+                <!--    课程封面图(phone)   image_phone  -->
+                <el-form-item label="老用户课程封面图(phone)：">
+                    <img-upload @uploadSuccess="uploadImage($event, 'image_phone')">
+                        <img class="desc" :src="sendParams.image_phone" width="100">
+                    </img-upload>
+                </el-form-item>
+
+                <!--    新用户课程封面图(phone)   image_phone_for_newuser   -->
+                <el-form-item label="新用户课程封面图(phone)：">
+                    <img-upload @uploadSuccess="uploadImage($event, 'image_phone_for_newuser')">
+                        <img class="desc" :src="sendParams.image_phone_for_newuser" width="100">
+                    </img-upload>
+                </el-form-item>
+
+                <!--    老用户课程封面图(pad)   image_pad   -->
+                <el-form-item label="老用户课程封面图(pad)：">
+                    <img-upload @uploadSuccess="uploadImage($event, 'image_pad')">
+                        <img class="desc" :src="sendParams.image_pad" width="100">
+                    </img-upload>
+                </el-form-item>
+
+                <!--    新用户课程封面图(pad)   image_pad_for_newuser   -->
+                <el-form-item label="新用户课程封面图(pad)：">
+                    <img-upload @uploadSuccess="uploadImage($event, 'image_pad_for_newuser')">
+                        <img class="desc" :src="sendParams.image_pad_for_newuser" width="100">
+                    </img-upload>
+                </el-form-item>
+
+            </div>
+
 
             <!--    课程名称    session_name -->
             <el-form-item label="课程名称：">
@@ -32,7 +87,8 @@
 
             <!--    是否在线    is_online -->
             <el-form-item label="是否在线：">
-                <el-input v-model="sendParams.is_online"></el-input>
+                <el-switch v-model="sendParams.is_online" :width="50" active-c olor="#13ce66" inactive-color="#ff4949"
+                           active-text="在线" inactive-text="不在线"></el-switch>
             </el-form-item>
 
             <!--    价格    price -->
@@ -50,16 +106,25 @@
 </template>
 
 <script>
+    import imgUpload from '../../components/imgUploader';
+
     export default {
         name: "sessionNew",
 
         data() {
             return {
-                sendParams: {},
+                sendParams: {
+                    app_source_array: [],
+                    image_pad: '',
+                    image_phone: '',
+                    image_pad_for_newuser: '',
+                    image_phone_for_newuser: '',
+                },
                 globalConfig: {
                     channelList: {},
                     appSource: {},
-                    categoryList: []
+                    categoryList: [],
+                    tagList: []
                 }
             }
         },
@@ -74,9 +139,9 @@
 
                 let vm = this,
                     params = {
-                    session_type: 1,
-                    product_type: 1
-                };
+                        session_type: 1,
+                        product_type: 1
+                    };
                 //  获取渠道信息和课程分类列表和app或者小程序渠道
                 this.$http.getList('o2_yogaSessionCategory', params, data => {
                     let result = data.data;
@@ -100,8 +165,16 @@
                     vm.globalConfig.sourceList = data.data;
                 });
 
+            },
+
+            uploadImage(img, paramsKey){
+                this.sendParams[paramsKey] = img;
             }
 
+        },
+
+        components: {
+            imgUpload
         }
     }
 </script>
