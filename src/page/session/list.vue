@@ -107,7 +107,7 @@
                 tableData: [],
                 pagination: {
                     total: 0,
-                    pageSize: 10
+                    pageSize: 20
                 }
             }
         },

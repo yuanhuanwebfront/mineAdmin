@@ -6,6 +6,8 @@ import otherRoutes from './module/otherRoutes';
 import orderRoutes from './module/orderRoutes';
 import operateRoutes from './module/operateRoutes';
 
+import sidebarConfig from '../config/sidebarConfig';
+
 import utils from '../utils';
 
 const LOGIN_PAGE_NAME = 'login';
@@ -51,13 +53,30 @@ myRouter.beforeEach((to, from, next) => {
 
 myRouter.afterEach(to => {
 
-    let _this = myRouter.app;
+    let _this = myRouter.app,
+        matchArr = to.matched;
 
     document.title = to.meta.title;
 
-    _this.$store.commit('changePath', to.path);
+    _this.$store.commit('changePath', getSideBarPath(matchArr));
     _this.$store.commit('changeBreadCrumb', to.matched);
 
 });
+
+//  确保跳转没有配置在sidebar的路由也可以正确打开菜单
+function getSideBarPath(matchArr){
+
+    let matchPath = '';
+
+    sidebarConfig.forEach( ({childrenRoutes}) => {
+        childrenRoutes.forEach(item => {
+            let findRouter = matchArr.find(route => route.path === item.path);
+            if(findRouter) matchPath = findRouter.path;
+        })
+    })
+
+    return matchPath;
+
+}
 
 export default myRouter;
