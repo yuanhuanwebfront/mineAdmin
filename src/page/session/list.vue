@@ -58,7 +58,8 @@
                 </el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
-                        <el-button size="mini" type="primary" title="编辑" icon="el-icon-edit"></el-button>
+                        <el-button size="mini" type="primary" @click="editSession(scope.row.id)"
+                                   title="编辑" icon="el-icon-edit"></el-button>
                         <el-button v-if="scope.row.status === 2" size="mini" type="primary">上线</el-button>
                         <el-button v-if="scope.row.status === 1" size="mini" type="danger">下线</el-button>
                         <el-button v-if="scope.row.display_status === 2" size="mini" type="primary">显示</el-button>
@@ -141,7 +142,12 @@
                         this.getList(1);
                     })
                 })
+            },
+
+            editSession(id){
+                this.$router.push({name: 'sessionEdit', params: {id}})
             }
+
         }
     }
 </script>

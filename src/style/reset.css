@@ -34,3 +34,5 @@ img.desc{
 }
 
 /*  reset element style */
+.block{display: block;}
+.center{text-align: center;}

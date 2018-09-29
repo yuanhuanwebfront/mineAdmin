@@ -13,6 +13,13 @@ let sessionRoutes = [
                 title: "创建课程"
             },
             component: () => import('../../page/session/sessionNew.vue')
+        },{
+            name: 'sessionEdit',
+            path: 'sessionEdit/:id',
+            meta: {
+                title: "编辑课程"
+            },
+            component: () => import('../../page/session/sessionNew.vue')
         }]
     },
     {

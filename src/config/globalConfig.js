@@ -8,3 +8,16 @@ export const SESSION_CONTENT_TYPE = {
     2: '其他'
 };
 
+export const VIP_TYPE = {
+    2: '基础会员',
+    3: '基础年费会员',
+    4: '高级会员',
+    5: '高级年费会员',
+    6: '高级会员(7.0.0)',
+    7: '高级年费会员(7.0.0)'
+};
+
+export const DISCOUNT_TYPE = {
+    1: '减钱'
+};
+
