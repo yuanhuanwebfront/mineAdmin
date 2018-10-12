@@ -28,7 +28,22 @@ let sessionRoutes = [
         meta: {
             title: "课程分类列表"
         },
-        component: () => import('../../page/session/category.vue')
+        component: () => import('../../page/session/category.vue'),
+        children: [{
+            name: 'sessionCategoryNew',
+            path: 'New',
+            meta: {
+                title: "创建分类"
+            },
+            component: () => import('../../page/session/categoryNew.vue')
+        },{
+            name: 'sessionCategoryEdit',
+            path: 'edit/:id',
+            meta: {
+                title: "编辑分类"
+            },
+            component: () => import('../../page/session/categoryNew.vue')
+        }]
     },
     {
         name: 'sessionVideoList',

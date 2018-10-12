@@ -13,7 +13,7 @@
 
             <!--    课程分类    category_id -->
             <el-form-item label="课程分类：">
-                <el-select v-model="sendParams.category_id">
+                <el-select v-model="sendParams.category_id" @change="getLatestSessionByCategory">
                     <el-option v-for="item in globalConfig.categoryList" :key="item.id" :label="item.category_name"
                                :value="item.id"></el-option>
                 </el-select>
@@ -379,6 +379,7 @@
 
         data() {
             return {
+                isEdit: !!this.$route.params.id,
                 sendParams: {
                     app_source_array: [],
                     discounts: [],
@@ -462,7 +463,8 @@
 
             handleEditInfo(data){
 
-                let info = data.data.session;
+                let filter = this.$options.filter,
+                    info = data.data.session;
 
                 this.sendParams = {...info};
                 this.sendParams.pushInfo = data.data.pushList;
@@ -470,19 +472,34 @@
                 this.sendParams.channel_type += '';
                 this.sendParams.mutex_type = info.mutex_type === 2;
                 this.sendParams.is_online = info.is_online === 1;
-                this.sendParams.tag_ids = data.data.tagList.filter(item => {
-                    return item.is_checked === 1;
-                }).map(info => info.id + '');
+                this.sendParams.tag_ids = data.data.tagList.filter(item => item.is_checked === 1).map(item => item.id);
                 this.sendParams.app_source_array = info.app_source_array.map(item => item += '');
-
-
-                console.log(this.sendParams);
+                this.sendParams.source_type = info.source_type + '';
+                this.sendParams.session_start_time = this.$options.filters.date(info.session_start_time * 1000, 'yyyy-MM-dd hh:mm:ss');
+                this.sendParams.session_end_time = this.$options.filters.date(info.session_end_time * 1000, 'yyyy-MM-dd hh:mm:ss');
+                this.sendParams.set_end_time = info.session_end_time !== 0;
+                this.sendParams.enroll_start_time = this.$options.filters.date(info.enroll_start_time * 1000, 'yyyy-MM-dd hh:mm:ss');
+                this.sendParams.session_content_type += '';
+                this.sendParams.discounts = info.discounts.map(item => {
+                    return {
+                        user_group_id: item.user_group_id + "",
+                        discount_type: item.discount_type + "",
+                        discount_value: item.discount_value + ""
+                    }
+                });
 
 
             },
 
             uploadImage(img, paramsKey) {
                 this.sendParams[paramsKey] = img;
+            },
+
+            getLatestSessionByCategory(category_id){
+                let vm = this;
+                this.$http.commonReq('get', 'O2_Yoga/getLatestSessionByCategory', {category_id}, res => {
+                    vm.handleEditInfo(res);
+                })
             },
 
             addDiscountItem() {
@@ -498,9 +515,12 @@
             },
 
             save() {
+                let vm = this;
                 this.sendParams.is_online = this.sendParams.is_online ? '1' : '2';
                 this.sendParams.mutex_type = this.sendParams.mutex_type ? '2' : '1';
-                this.$http.create('o2_yoga', this.sendParams);
+                this.$http.create('o2_yoga', this.sendParams, () => {
+                    vm.$router.back();
+                });
             }
 
         },

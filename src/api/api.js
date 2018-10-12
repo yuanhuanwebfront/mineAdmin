@@ -54,6 +54,12 @@ let $http = {
         })
     },
 
+    update(nameSpace, params, callback) {
+        requestInstance.post(`${nameSpace}/update`, $.param(params)).then(res => {
+            commonHandle(res, callback);
+        })
+    },
+
     commonReq(method, url, param, callback) {
         let params = method === 'get' ? {params: param} : $.param(param);
         requestInstance[method](url, params).then(res => {

@@ -81,7 +81,7 @@
                     screenType: '',
                     status: ''
                 },
-                isFirstRequest: false,
+                isFirstRequest: true,
                 deviceInfo: {},
                 statusInfo: {},
                 screenType: {},
@@ -116,11 +116,15 @@
 
             handleList(data){
                 let result = data.data;
-                this.isFirstRequest = true;
-                this.deviceInfo = result.deviceInfo;
-                this.statusInfo = result.status;
-                this.screenType = result.ScreenType;
+
+                if(this.isFirstRequest){
+                    this.deviceInfo = result.deviceInfo;
+                    this.statusInfo = result.status;
+                    this.screenType = result.ScreenType;
+                    this.isFirstRequest = false;
+                }
                 this.tableData = result.list;
+
             },
 
             deleteInfo({Id}){
