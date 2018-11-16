@@ -16,6 +16,10 @@ let filterMap = {
 
         return format.replace(/yyyy/g, year).replace(/MM/g, month).replace(/dd/g, day).replace(/hh/g, hour).replace(/mm/g, minutes).replace(/ss/g, seconds);
 
+    },
+
+    money(val){
+        return '￥' + parseFloat(val).toFixed(2)
     }
 
 

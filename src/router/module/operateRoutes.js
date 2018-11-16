@@ -23,7 +23,7 @@ let operateRoutes = [
                     title: "添加微信banner"
                 },
                 component: () => import('../../page/operate/wechatBannerAdd.vue')
-            },{
+            }, {
                 name: 'wechatBannerEdit',
                 path: 'wechatBannerEdit/:id',
                 meta: {
@@ -31,7 +31,40 @@ let operateRoutes = [
                 },
                 component: () => import('../../page/operate/wechatBannerAdd.vue')
             }]
-    }
+    },
+
+    {
+        name: 'voucherList',
+        path: 'operate/voucherList',
+        meta: {
+            title: '优惠券列表'
+        },
+        component: () => import('../../page/operate/voucherList.vue'),
+        children: [
+            {
+                name: 'voucherNew',
+                path: 'new',
+                meta: {
+                    title: "新增优惠券"
+                },
+                component: () => import('../../page/operate/voucherNew.vue')
+            },{
+                name: 'voucherEdit',
+                path: 'edit/:id',
+                meta: {
+                    title: "编辑优惠券"
+                },
+                component: () => import('../../page/operate/voucherNew.vue')
+            },{
+                name: 'voucherRecord',
+                path: 'voucherRecord',
+                meta: {
+                    title: "优惠券发送列表"
+                },
+                component: () => import('../../page/operate/voucherRecord.vue')
+            }
+        ]
+    },
 ];
 
 export default operateRoutes;

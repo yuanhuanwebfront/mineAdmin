@@ -45,6 +45,9 @@ const operateRoutes = {
     },{
         path: '/operate/wechatBannerList',
         name: '微信banner配置'
+    },{
+        path: '/operate/voucherList',
+        name: '优惠券列表'
     }]
 };
 

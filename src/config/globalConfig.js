@@ -21,3 +21,8 @@ export const DISCOUNT_TYPE = {
     1: '减钱'
 };
 
+export const VOUCHER_USE_TYPE = {
+    1: '固定使用时间',
+    2: '兑换当时时间起算',
+};
+

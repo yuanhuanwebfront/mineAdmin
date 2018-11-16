@@ -3,7 +3,7 @@
         <!--    头部  -->
         <el-row :gutter="20">
             <el-col :span="3">
-                <el-button type="primary" size="small" icon="el-icon-plus">创建课程分类</el-button>
+                <el-button type="primary" size="small" icon="el-icon-plus">新增视频</el-button>
             </el-col>
         </el-row>
 
@@ -37,7 +37,7 @@
             <el-table-column label="操作">
                 <template slot-scope="scope">
                     <el-button size="mini" type="primary" title="编辑" icon="el-icon-edit"></el-button>
-                    <el-button size="mini" type="danger" title="删除" icon="el-icon-delete"></el-button>
+                    <el-button size="mini" type="danger" title="删除" icon="el-icon-delete" @click="deleteItem(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -57,7 +57,9 @@
         'http://o2o.dailyyoga.com.cn/front_end_all/o2/yogaVideo/index.html?id=';
 
     export default {
+
         name: "videoList",
+
         data() {
             return {
                 tableData: [],
@@ -72,10 +74,13 @@
                 }
             }
         },
+
         created() {
             this.getList(1);
         },
+
         methods: {
+
             getList(page) {
                 let params = {
                     page: page || 1,
@@ -88,6 +93,14 @@
                 let res = data.data;
                 this.pagination.total = res.total;
                 this.tableData = res.list;
+            },
+
+            deleteItem({name, id}){
+                this.$confirm(`确认删除视频 "${name}" 吗？`, '提示').then(() => {
+                    this.$http.delete('O2_Yogavideo', {id}, () => {
+                        this.getList(1);
+                    })
+                });
             }
         }
     }
