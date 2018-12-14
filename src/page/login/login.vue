@@ -4,12 +4,12 @@
 
             <div class="input-area flex">
                 <label>用户名：</label>
-                <el-input v-model="userInfo.username" size="medium" placeholder="请输入用户名" prefix-icon="el-icon-date"></el-input>
+                <el-input v-model="userInfo.an_name" size="medium" placeholder="请输入用户名" prefix-icon="el-icon-date"></el-input>
             </div>
 
             <div class="input-area flex">
                 <label>密码：</label>
-                <el-input v-model="userInfo.password" size="medium" type="password" placeholder="请输入密码" prefix-icon="el-icon-date"></el-input>
+                <el-input v-model="userInfo.an_pwd" size="medium" type="password" placeholder="请输入密码" prefix-icon="el-icon-date"></el-input>
             </div>
 
             <el-button class="login-btn" type="primary" @click="login">登录</el-button>
@@ -26,8 +26,8 @@
         data(){
             return {
                 userInfo: {
-                    username: 'admin',
-                    password: 'wtfhhuaectk'
+                    an_name: 'test1',
+                    an_pwd: '123'
                 }
             }
         },
@@ -36,8 +36,8 @@
                 this.$http.login(this.userInfo, this.loginSuccess)
             },
             loginSuccess(data){
-                Cookie.set('SADMIN', data.data.s_admin);
-                Cookie.set('UADMIN', data.data.u_admin);
+                Cookie.set('access_token', data.result.token);
+                this.$store.dispatch('actionList', data.result.permission_list);
                 this.$router.push('/');
             }
         }
@@ -71,6 +71,7 @@
                 display: block;
                 width: 240px;
                 margin: 30px auto;
+                font-size: 16px;
             }
         }
     }

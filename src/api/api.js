@@ -1,16 +1,23 @@
 import requestInstance from './config';
 import {Message} from 'element-ui';
+import Cookie from 'js-cookie';
 import $ from 'jquery';
-
+import router from '../router';
 
 function commonHandle(res, cb) {
-    if (res.data.errno === 0) {
+    if (res.data.error_code === 0) {
         cb && cb(res.data);
     } else {
+
         Message({
             type: 'error',
-            message: res.data.errmsg
+            message: res.data.error_desc
         });
+
+        if(res.data.error_code === 1005){
+            Cookie.remove('access_token');
+            router.push({name: 'login'});
+        }
     }
 }
 
@@ -18,8 +25,15 @@ let $http = {
 
     uploadUrl: requestInstance._upLoadUrl,
 
+
     login(data, callback) {
-        requestInstance.post('login/login', $.param(data)).then(res => {
+        requestInstance.post('user/login', $.param(data)).then(res => {
+            commonHandle(res, callback);
+        })
+    },
+
+    getPermission(callback){
+        requestInstance.get('user/me', {token: Cookie.get('access_token')}).then(res => {
             commonHandle(res, callback);
         })
     },
@@ -43,25 +57,25 @@ let $http = {
     },
 
     create(nameSpace, params, callback) {
-        requestInstance.post(`${nameSpace}/create`, $.param(params)).then(res => {
+        requestInstance.post(`${nameSpace}/create`, params).then(res => {
             commonHandle(res, callback);
         })
     },
 
     delete(nameSpace, params, callback) {
-        requestInstance.post(`${nameSpace}/delete`, $.param(params)).then(res => {
+        requestInstance.post(`${nameSpace}/delete`, params).then(res => {
             commonHandle(res, callback);
         })
     },
 
     update(nameSpace, params, callback) {
-        requestInstance.post(`${nameSpace}/update`, $.param(params)).then(res => {
+        requestInstance.post(`${nameSpace}/update`, params).then(res => {
             commonHandle(res, callback);
         })
     },
 
     commonReq(method, url, param, callback) {
-        let params = method === 'get' ? {params: param} : $.param(param);
+        let params = method === 'get' ? {params: param} : param;
         requestInstance[method](url, params).then(res => {
             commonHandle(res, callback);
         })

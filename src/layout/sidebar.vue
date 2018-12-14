@@ -1,8 +1,8 @@
 <template>
 
-    <el-menu class="menu-area" :collapse="sideBarCollapse" background-color="#2d313a"
+    <el-menu class="menu-area" :collapse="sideBarCollapse" background-color="#fcfcfc"
              :unique-opened="isUniqOpen" :default-active="activePath"
-             text-color="#eee" active-text-color="#ffd04b" :router="isRouteUse">
+             text-color="#333" active-text-color="#8CA5FF" :router="isRouteUse">
         <el-submenu v-for="config in sidebarConfig" :index="config.mainIndex">
             <template slot="title">
                 <i :class="config.iconName"></i>
@@ -56,7 +56,7 @@
     .menu-area {
         box-sizing: border-box;
         max-width: 250px;
-        margin: 30px 0 30px 10px !important;
+        margin: 10px 0 30px 10px !important;
         border-radius: 10px;
         box-shadow: 0 0 2px 2px #e5e5e5;
         .collapse {

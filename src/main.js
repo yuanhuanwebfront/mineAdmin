@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import {mixin} from './mixin'
 
 import filter from './filter/filter';
 import $http from './api/api';
@@ -22,13 +23,14 @@ import "./style/element-reset.css";
 
 
 Vue.use(elementUi, {
-    size: 'small'
+    size: 'default'
 });
 
 new Vue({
     el: '#app',
     store,
     router,
+    mixins: [mixin],
     components: {App},
     template: '<App/>'
 });

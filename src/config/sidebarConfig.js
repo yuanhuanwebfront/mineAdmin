@@ -1,6 +1,7 @@
 const SESSION_INDEX = 'sessionManage';
 const ORDER_INDEX = 'orderManage';
 const OPERATE_INDEX = 'operateManage';
+const PERMISSION_INDEX = 'permissionManage';
 
 
 const sessionRoutes = {
@@ -9,6 +10,7 @@ const sessionRoutes = {
     iconName: 'el-icon-tickets',
     childrenRoutes: [{
         path: '/session/list',
+        permissionInfo: '',
         name: '课程列表'
     },{
         path: '/session/categoryList',
@@ -16,6 +18,9 @@ const sessionRoutes = {
     },{
         path: '/session/videoList',
         name: '视频列表'
+    },{
+        path: '/session/teacherList',
+        name: '老师管理'
     }]
 };
 
@@ -51,4 +56,17 @@ const operateRoutes = {
     }]
 };
 
-export default [sessionRoutes, orderRoutes, operateRoutes];
+const permissionRoutes = {
+    mainTitle: '权限管理',
+    mainIndex: PERMISSION_INDEX,
+    iconName: 'el-icon-document',
+    childrenRoutes: [{
+        path: '/permission/roleList',
+        name: '角色列表'
+    },{
+        path: '/permission/userList',
+        name: '用户列表'
+    }]
+};
+
+export default [sessionRoutes, orderRoutes, operateRoutes, permissionRoutes];

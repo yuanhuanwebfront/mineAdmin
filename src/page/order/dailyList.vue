@@ -20,7 +20,7 @@
                 <el-button type="primary" icon="el-icon-search">搜索</el-button>
             </el-col>
             <el-col :span="3">
-                <el-button type="primary" icon="el-icon-download">导出全部</el-button>
+                <el-button @click="exportAllOrder" type="primary" icon="el-icon-download">导出全部</el-button>
             </el-col>
         </el-row>
         <!--    表格  -->
@@ -34,8 +34,12 @@
 
             <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <el-button type="primary" size="mini" icon="el-icon-download">导出未支付</el-button>
-                    <el-button type="primary" size="mini" icon="el-icon-download">导出已支付</el-button>
+                    <el-button @click="exportNoPayList(scope.row.orderDate)" type="primary" size="mini"
+                               icon="el-icon-download">导出未支付
+                    </el-button>
+                    <el-button @click="exportHasPayList(scope.row.orderDate)" type="primary" size="mini"
+                               icon="el-icon-download">导出已支付
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -45,9 +49,12 @@
 </template>
 
 <script>
+
+    import {exportDataAsCsvFile} from '../../utils';
+
     export default {
         name: "dailyList",
-        data (){
+        data() {
             return {
                 tableData: [],
                 pagination: {
@@ -60,7 +67,7 @@
                 }
             }
         },
-        created (){
+        created() {
             let filter = this.$options.filters.date,
                 date = new Date(),
                 start = new Date().getTime() - 15 * 24 * 60 * 60 * 1000;
@@ -69,6 +76,7 @@
             this.getList(1);
         },
         methods: {
+
             getList(page) {
                 let params = {
                     page: page || 1,
@@ -87,7 +95,34 @@
                     list.push(res.result[key]);
                 });
                 this.tableData = list;
+            },
+
+            exportList(params) {
+                params.session_type = 1;
+                this.$http.commonReq('post', 'o2_yoga/exportOrderStatist', params, exportDataAsCsvFile)
+            },
+
+            exportNoPayList(date) {
+                let params = {
+                    payType: 2,
+                    startDate: date,
+                    endDate: date
+                };
+                this.exportList(params);
+            },
+
+            exportHasPayList(date) {
+                let params = {
+                    startDate: date,
+                    endDate: date
+                };
+                this.exportList(params);
+            },
+
+            exportAllOrder() {
+                this.exportList({...this.searchParams});
             }
+
         }
     }
 </script>

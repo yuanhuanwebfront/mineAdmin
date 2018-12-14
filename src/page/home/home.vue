@@ -1,10 +1,10 @@
 <template>
-    <div class="main-area">
+    <div class="main-area" :style="{'margin-top': !$route.meta.hiddenBar ? '75px' : '0'}">
         <el-container>
-            <el-aside v-if="!$route.meta.hiddenBar">
+            <el-aside v-if="!$route.meta.hiddenBar" style="width: 270px;">
                 <sideBar></sideBar>
             </el-aside>
-            <el-main style="box-sizing: border-box;" :style="{'margin': $route.meta.hiddenBar ? '0' : '28px 10px 0 0'}">
+            <el-main style="box-sizing: border-box;" :style="{'padding': $route.meta.hiddenBar ? '0' : '15px 10px 0 20px'}">
                 <el-breadcrumb v-if="!$route.meta.hiddenBar" separator-class="el-icon-arrow-right" class="breadcrumb-area">
                     <el-breadcrumb-item v-for="item in breadcrumbList" :to="{path: item.path}">{{item.title}}</el-breadcrumb-item>
                 </el-breadcrumb>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import sideBar from '../../components/sidebar';
+    import sideBar from '../../layout/sidebar';
     import {mapGetters} from 'vuex';
 
     export default {

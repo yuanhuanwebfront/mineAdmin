@@ -1,14 +1,17 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import store from '../store';
+
 
 import sessionRoutes from './module/sessionRoutes';
 import otherRoutes from './module/otherRoutes';
 import orderRoutes from './module/orderRoutes';
 import operateRoutes from './module/operateRoutes';
+import permissionRoutes from './module/permissionRoutes';
 
 import sidebarConfig from '../config/sidebarConfig';
 
-import utils from '../utils';
+import {checkLogin} from '../utils';
 
 const LOGIN_PAGE_NAME = 'login';
 
@@ -28,7 +31,8 @@ let myRouter = new Router({
                 ...sessionRoutes,
                 ...orderRoutes,
                 ...otherRoutes,
-                ...operateRoutes
+                ...operateRoutes,
+                ...permissionRoutes
             ]
         }
     ],
@@ -38,14 +42,15 @@ let myRouter = new Router({
 });
 
 myRouter.beforeEach((to, from, next) => {
-    let hasLogin = utils.checkLogin();
+
+    let hasLogin = checkLogin();
 
     if (!hasLogin && to.name !== LOGIN_PAGE_NAME) {
         next({name: LOGIN_PAGE_NAME});
     } else if(!hasLogin && to.name === LOGIN_PAGE_NAME){
-        next()
+        next();
     }else if(hasLogin && to.name === LOGIN_PAGE_NAME){
-        next({path: '/'})
+        next({path: '/'});
     }else{
         next();
     }
@@ -73,7 +78,7 @@ function getSideBarPath(matchArr){
             let findRouter = matchArr.find(route => route.path === item.path);
             if(findRouter) matchPath = findRouter.path;
         })
-    })
+    });
 
     return matchPath;
 

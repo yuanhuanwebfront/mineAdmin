@@ -1,4 +1,5 @@
 let sessionRoutes = [
+    //  课程列表tab
     {
         name: 'sessionList',
         path: 'session/list',
@@ -22,6 +23,8 @@ let sessionRoutes = [
             component: () => import('../../page/session/sessionNew.vue')
         }]
     },
+
+    //  课程分类tab
     {
         name: 'sessionCategoryList',
         path: 'session/categoryList',
@@ -45,6 +48,8 @@ let sessionRoutes = [
             component: () => import('../../page/session/categoryNew.vue')
         }]
     },
+
+    //  课程视频tab
     {
         name: 'sessionVideoList',
         path: 'session/videoList',
@@ -52,6 +57,16 @@ let sessionRoutes = [
             title: "视频列表"
         },
         component: () => import('../../page/session/video.vue')
+    },
+
+    //  老师管理
+    {
+        name: 'sessionTeacherList',
+        path: 'session/teacherList',
+        meta: {
+            title: '老师管理'
+        },
+        component: () => import('../../page/session/teacher.vue')
     }
 ];
 
