@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from '../store';
+import request from '../api/api';
 
 
 import sessionRoutes from './module/sessionRoutes';
@@ -43,16 +44,19 @@ let myRouter = new Router({
 
 myRouter.beforeEach((to, from, next) => {
 
+
     let hasLogin = checkLogin();
 
     if (!hasLogin && to.name !== LOGIN_PAGE_NAME) {
         next({name: LOGIN_PAGE_NAME});
-    } else if(!hasLogin && to.name === LOGIN_PAGE_NAME){
+    } else if (!hasLogin && to.name === LOGIN_PAGE_NAME) {
         next();
-    }else if(hasLogin && to.name === LOGIN_PAGE_NAME){
+    } else if (hasLogin && to.name === LOGIN_PAGE_NAME) {
         next({path: '/'});
-    }else{
-        next();
+    } else {
+        checkHasPermission().then(() => {
+            next();
+        });
     }
 });
 
@@ -69,19 +73,35 @@ myRouter.afterEach(to => {
 });
 
 //  确保跳转没有配置在sidebar的路由也可以正确打开菜单
-function getSideBarPath(matchArr){
+function getSideBarPath(matchArr) {
 
     let matchPath = '';
 
-    sidebarConfig.forEach( ({childrenRoutes}) => {
+    sidebarConfig.forEach(({childrenRoutes}) => {
         childrenRoutes.forEach(item => {
             let findRouter = matchArr.find(route => route.path === item.path);
-            if(findRouter) matchPath = findRouter.path;
+            if (findRouter) matchPath = findRouter.path;
         })
     });
 
     return matchPath;
 
+}
+
+//  再每次进入路由时判断是否存在权限列表
+function checkHasPermission() {
+
+    return new Promise((resolve, reject) => {
+        if (store.state.PERMISSION.permissionList.length === 0) {
+            request.commonReq('get', 'user/me', {}, res => {
+                store.dispatch('ACTION_PERMISSION_LIST', res.result.permission_list);
+                resolve();
+            })
+        } else {
+            resolve();
+        }
+
+    })
 }
 
 export default myRouter;

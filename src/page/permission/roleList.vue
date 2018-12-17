@@ -3,7 +3,8 @@
         <div v-if=" $route.name === 'permissionRoleList' ">
             <el-row :gutter="20">
                 <el-col :span="5">
-                    <el-button @click="addUser" type="primary" size="small" icon="el-icon-circle-plus-outline">新建用户</el-button>
+                    <el-button @click="addRole" type="primary"
+                               size="small" icon="el-icon-circle-plus-outline">新建角色</el-button>
                 </el-col>
             </el-row>
 
@@ -16,8 +17,8 @@
 
                 <el-table-column label="操作">
                     <template slot-scope="scope">
-                        <el-button @click="editUser(scope.row.id)" type="primary" title="编辑" icon="el-icon-edit-outline"></el-button>
-                        <el-button type="danger" title="删除" icon="el-icon-delete"></el-button>
+                        <el-button size="small" @click="editUser(scope.row.role_id)" type="primary" title="编辑" icon="el-icon-edit-outline">编辑</el-button>
+                        <el-button size="small" type="danger" title="删除" icon="el-icon-delete">删除</el-button>
                     </template>
                 </el-table-column>
 
@@ -39,20 +40,29 @@
         },
         created(){
             if(this.$route.name === 'permissionRoleList'){
-                this.$http.getList('role', {}, this.handleList);
+                this.getList();
             }
         },
+        beforeRouteUpdate(to, from, next){
+            if(to.name === 'permissionRoleList') this.getList();
+            next();
+        },
         methods: {
+
+            getList(){
+                this.$http.getList('role', {}, this.handleList);
+            },
+
             handleList(res){
                 this.tableData = res.result
             },
 
-            addUser(){
-                this.$router.push({name: 'permissionUserNew'});
+            addRole(){
+                this.$router.push({name: 'permissionRoleNew'});
             },
 
-            editUser(userId){
-                this.$router.push({name: 'permissionUserEdit', params: {userId}});
+            editUser(roleId){
+                this.$router.push({name: 'permissionRoleEdit', params: {roleId}});
             }
         }
     }

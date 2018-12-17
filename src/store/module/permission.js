@@ -24,7 +24,7 @@ const PERMISSION = {
 
     actions: {
 
-        actionList({commit}, list){
+        "ACTION_PERMISSION_LIST"({commit}, list){
             commit('setList', list);
         }
 
