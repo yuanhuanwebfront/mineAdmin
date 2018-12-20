@@ -2,12 +2,18 @@
     <div class="access-box center">
         <div class="lock"></div>
         <p class="desc">你没有当前页面的访问权限</p>
+        <el-button @click="backHome">回首页</el-button>
     </div>
 </template>
 
 <script>
     export default {
-        name: "no-access-page"
+        name: "no-access-page",
+        methods: {
+            backHome(){
+                this.$router.push('/');
+            }
+        }
     }
 </script>
 
@@ -16,7 +22,7 @@
         width: 100%;
         height: 100%;
         padding-top: 200px;
-        background: #ececec;
+        background: #fcfcfc;
     }
 
     .lock {

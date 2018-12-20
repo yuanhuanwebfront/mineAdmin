@@ -2,6 +2,8 @@ const SESSION_INDEX = 'sessionManage';
 const ORDER_INDEX = 'orderManage';
 const OPERATE_INDEX = 'operateManage';
 const PERMISSION_INDEX = 'permissionManage';
+const NEW_SESSION_DETAIL_INDEX = 'newSessionDetailManage';
+const BASE_URL = '/admin/';
 
 
 const sessionRoutes = {
@@ -10,8 +12,8 @@ const sessionRoutes = {
     iconName: 'el-icon-tickets',
     childrenRoutes: [{
         path: '/session/list',
-        permissionInfo: '',
-        name: '课程列表'
+        name: '课程列表',
+        permissionInfo: BASE_URL + 'o2_yoga/list',
     },{
         path: '/session/categoryList',
         name: '课程分类'
@@ -62,11 +64,32 @@ const permissionRoutes = {
     iconName: 'el-icon-document',
     childrenRoutes: [{
         path: '/permission/roleList',
+        permissionInfo: BASE_URL + 'role/list',
         name: '角色列表'
     },{
         path: '/permission/userList',
+        permissionInfo: BASE_URL + 'user/list',
         name: '用户列表'
     }]
 };
 
-export default [sessionRoutes, orderRoutes, operateRoutes, permissionRoutes];
+const newSessionDetailRoutes = {
+    mainTitle: '新课程详情',
+    mainIndex: NEW_SESSION_DETAIL_INDEX,
+    iconName: 'el-icon-document',
+    childrenRoutes: [{
+        path: '/newSessionDetail/list',
+        permissionInfo: BASE_URL + 'session/list',
+        name: '课程详情列表'
+    },{
+        path: '/newSessionDetail/moduleList',
+        permissionInfo: BASE_URL + 'session/info/list',
+        name: '模块列表'
+    },{
+        path: '/newSessionDetail/elementList',
+        permissionInfo: BASE_URL + 'session/model/list',
+        name: '元素列表'
+    }]
+};
+
+export default [sessionRoutes, orderRoutes, operateRoutes, permissionRoutes, newSessionDetailRoutes];

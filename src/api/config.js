@@ -12,9 +12,11 @@ const ALL_URL = {
     // 本地
     // baseUrl: 'http://115.29.202.161:8081/appadmin/'
     // 测试
-    // baseUrl: 'http://115.29.202.161:8090/appadmin/'
+    baseUrl: 'http://115.29.202.161:18197/admin/'
     // 郎玉清
-    baseUrl: 'http://115.29.202.161:18190/admin/'
+    // baseUrl: 'http://115.29.202.161:18190/admin/',
+    //  林军
+    // baseUrl: 'http://115.29.202.161:18192/admin/'
 };
 
 const TIME_OUT = 50000;
@@ -23,15 +25,14 @@ axios.defaults.baseURL = ALL_URL.baseUrl;
 
 function beforeRequest(config){
 
-    // globalLoading = Loading.service({
-    //     fullscreen: true,
-    //     background: 'rgba(255, 255, 255, 0.4)'
-    // });
+    globalLoading = Loading.service({
+        fullscreen: true,
+        background: 'rgba(255, 255, 255, 0.4)'
+    });
 
     let token = Cookie.get('access_token');
 
     if(token){
-        // config.headers.token = token;
         if(config.params) config.params.token = token;
         if(config.data) {
             config.data.token = token;
@@ -58,6 +59,6 @@ let requestInstance = axios.create({
 requestInstance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 requestInstance.interceptors.request.use(beforeRequest);
 requestInstance.interceptors.response.use(finishRequest);
-requestInstance._upLoadUrl = ALL_URL.baseUrl + 'common/upload';
+requestInstance._upLoadUrl = '//115.29.202.161:8090/appadmin/common/upload';
 
 export default requestInstance;

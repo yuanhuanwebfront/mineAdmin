@@ -3,18 +3,19 @@ import Router from 'vue-router';
 import store from '../store';
 import request from '../api/api';
 
-
 import sessionRoutes from './module/sessionRoutes';
 import otherRoutes from './module/otherRoutes';
 import orderRoutes from './module/orderRoutes';
 import operateRoutes from './module/operateRoutes';
 import permissionRoutes from './module/permissionRoutes';
+import newSessionDetailRoutes from './module/newSessionDetailRoutes';
 
 import sidebarConfig from '../config/sidebarConfig';
 
 import {checkLogin} from '../utils';
 
 const LOGIN_PAGE_NAME = 'login';
+const NO_ACCESS_PAGE_NAME = 'noAccess';
 
 Vue.use(Router);
 
@@ -24,16 +25,17 @@ let myRouter = new Router({
             path: '/',
             name: 'home',
             meta: {
-                title: '首页'
+                title: '首页',
+                isHome: true
             },
-            redirect: 'session/list',
             component: () => import('../page/home/home.vue'),
             children: [
                 ...sessionRoutes,
                 ...orderRoutes,
                 ...otherRoutes,
                 ...operateRoutes,
-                ...permissionRoutes
+                ...permissionRoutes,
+                ...newSessionDetailRoutes
             ]
         }
     ],
@@ -52,10 +54,20 @@ myRouter.beforeEach((to, from, next) => {
     } else if (!hasLogin && to.name === LOGIN_PAGE_NAME) {
         next();
     } else if (hasLogin && to.name === LOGIN_PAGE_NAME) {
-        next({path: '/'});
-    } else {
         checkHasPermission().then(() => {
+            next({path: '/'});
+        });
+    } else if(hasLogin && to.name === NO_ACCESS_PAGE_NAME){
+        next();
+    }else {
+        checkHasPermission().then(() => {
+            let hasPermission = checkPermissionIsAllow(to);
             next();
+            if(hasPermission){
+                next();
+            }else{
+                next({path: '/noAccess'});
+            }
         });
     }
 });
@@ -88,13 +100,14 @@ function getSideBarPath(matchArr) {
 
 }
 
-//  再每次进入路由时判断是否存在权限列表
+//  每次进入路由时判断是否存在权限列表
 function checkHasPermission() {
 
     return new Promise((resolve, reject) => {
         if (store.state.PERMISSION.permissionList.length === 0) {
             request.commonReq('get', 'user/me', {}, res => {
                 store.dispatch('ACTION_PERMISSION_LIST', res.result.permission_list);
+                store.dispatch('ACTION_SET_USERNAME', res.result.name);
                 resolve();
             })
         } else {
@@ -102,6 +115,12 @@ function checkHasPermission() {
         }
 
     })
+}
+
+//  每次进入路由之前权限列表中是否存在该权限
+function checkPermissionIsAllow(to){
+    return store.state.PERMISSION.permissionList.indexOf(to.meta.permission) !== -1 || to.meta.isHome;
+    // return true;
 }
 
 export default myRouter;

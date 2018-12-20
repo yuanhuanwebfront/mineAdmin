@@ -1,10 +1,8 @@
 const PERMISSION = {
 
     state: {
-
-        permissionList: []
-
-
+        permissionList: [],
+        userName: ""
     },
 
 
@@ -18,6 +16,10 @@ const PERMISSION = {
 
         setList(state, list){
             state.permissionList = [...list];
+        },
+
+        setUserName(state, name){
+            state.userName = name;
         }
 
     },
@@ -26,6 +28,10 @@ const PERMISSION = {
 
         "ACTION_PERMISSION_LIST"({commit}, list){
             commit('setList', list);
+        },
+
+        "ACTION_SET_USERNAME" ({commit}, name){
+            commit('setUserName', name);
         }
 
     }

@@ -1,0 +1,27 @@
+
+@font-face {font-family: "iconfont";
+    src: url('iconfont.eot?t=1545289672368'); /* IE9*/
+    src: url('iconfont.eot?t=1545289672368#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAQwAAsAAAAABnQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADMAAABCsP6z7U9TLzIAAAE8AAAARAAAAFY9U0jPY21hcAAAAYAAAABLAAABcOgFuEFnbHlmAAABzAAAAHwAAAB8NjWtFGhlYWQAAAJIAAAALwAAADYTogWbaGhlYQAAAngAAAAcAAAAJAfeA4NobXR4AAAClAAAAAgAAAAICAAAAGxvY2EAAAKcAAAABgAAAAYAPgAAbWF4cAAAAqQAAAAgAAAAIAEPACxuYW1lAAACxAAAAUUAAAJtPlT+fXBvc3QAAAQMAAAAIgAAADM+5NfSeJxjYGRgYOBikGPQYWB0cfMJYeBgYGGAAJAMY05meiJQDMoDyrGAaQ4gZoOIAgCKIwNPAHicY2BkYWCcwMDKwMHUyXSGgYGhH0IzvmYwYuRgYGBiYGVmwAoC0lxTGBye3X12l7nhfwNDDHMDQwNQmBEkBwD/rQ2deJxjYGBgZWBgYAZiHSBmYWBgDGFgZAABP6AoI1icmYELLM7CoARWwwISf3b3/38YCeSzgEkGRjaGUcADJmWgPHBYQTADIwBFcgzdAAADAAD/wwPEA0sACwAVAB8AAAEOAQceARc+ATcuAQE+ATcyFhcBLgEBIiYnAR4BFQ4BAgDA/gUF/sDA/gUF/v30BLuNNmIp/jEdIQFMM14nAcwbHQS7A0sF/8C//wUF/7/A//5BjbwDIB7+MSli/uoeGgHNKF00jbsAAAB4nGNgZGBgAGJG6bWm8fw2Xxm4WRhA4IZjwgkE/f8wCwOzN5DLwcAEEgUA/LkJTwB4nGNgZGBgbvjfwBDDwgACQJKRARUwAQBHCAJrBAAAAAQAAAAAAAAAAD4AAAABAAAAAgAgAAMAAAAAAAIAAAAKAAoAAAD/AAAAAAAAeJxlj01OwzAQhV/6B6QSqqhgh+QFYgEo/RGrblhUavdddN+mTpsqiSPHrdQDcB6OwAk4AtyAO/BIJ5s2lsffvHljTwDc4Acejt8t95E9XDI7cg0XuBeuU38QbpBfhJto41W4Rf1N2MczpsJtdGF5g9e4YvaEd2EPHXwI13CNT+E69S/hBvlbuIk7/Aq30PHqwj7mXle4jUcv9sdWL5xeqeVBxaHJIpM5v4KZXu+Sha3S6pxrW8QmU4OgX0lTnWlb3VPs10PnIhVZk6oJqzpJjMqt2erQBRvn8lGvF4kehCblWGP+tsYCjnEFhSUOjDFCGGSIyujoO1Vm9K+xQ8Jee1Y9zed0WxTU/3OFAQL0z1xTurLSeTpPgT1fG1J1dCtuy56UNJFezUkSskJe1rZUQuoBNmVXjhF6XNGJPyhnSP8ACVpuyAAAAHicY2BigAAuBuyAiZGJkZmBMy2/KCkzJSU1j4EBAB0IA8wAAA==') format('woff'),
+    url('iconfont.ttf?t=1545289672368') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('iconfont.svg?t=1545289672368#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="el-icon-new"], [class*=" el-icon-new"] {
+    font-family:"iconfont" !important;
+    font-size: 14px;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.el-icon-new-forbidden:before { content: "\e6dd"; }
+

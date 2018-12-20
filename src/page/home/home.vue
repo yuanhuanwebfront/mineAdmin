@@ -8,9 +8,12 @@
                 <el-breadcrumb v-if="!$route.meta.hiddenBar" separator-class="el-icon-arrow-right" class="breadcrumb-area">
                     <el-breadcrumb-item v-for="item in breadcrumbList" :to="{path: item.path}">{{item.title}}</el-breadcrumb-item>
                 </el-breadcrumb>
-                <transition name="fade">
+                <transition name="fade" v-if="!$route.meta.isHome">
                     <router-view></router-view>
                 </transition>
+                <div v-else class="main-board center">
+                    首页空白区域，暂留
+                </div>
             </el-main>
         </el-container>
     </div>
@@ -51,6 +54,12 @@
     }
     .breadcrumb-area{
         margin-bottom: 20px;
+    }
+    .main-board{
+        width: 100%;
+        height: 500px;
+        line-height: 500px;
+        font-size: 20px;
     }
 
 </style>

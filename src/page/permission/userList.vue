@@ -17,7 +17,7 @@
                 <el-table-column label="操作">
                     <template slot-scope="scope">
                         <el-button @click="editUser(scope.row.id)" type="primary" title="编辑" icon="el-icon-edit-outline"></el-button>
-                        <el-button type="danger" title="删除" icon="el-icon-delete"></el-button>
+                        <el-button @click="forbiddenUser(scope.row.id)" type="danger" title="禁用" class="icon iconfont el-icon-new-forbidden"></el-button>
                     </template>
                 </el-table-column>
 
@@ -37,6 +37,10 @@
                 tableData: []
             }
         },
+        beforeRouteUpdate(to, from, next){
+            if(to.name === 'permissionUserList') this.$http.getList('user', {}, this.handleList);
+            next();
+        },
         created(){
             if(this.$route.name === 'permissionUserList'){
                 this.$http.getList('user', {}, this.handleList);
@@ -53,7 +57,17 @@
 
             editUser(userId){
                 this.$router.push({name: 'permissionUserEdit', params: {userId}});
+            },
+
+            forbiddenUser(an_id){
+                this.$http.commonReq('post', 'user/forbidden', {an_id}, res => {
+                    this.$message({
+                        message: '禁用成功',
+                        type: 'success'
+                    })
+                })
             }
+
         }
     }
 </script>

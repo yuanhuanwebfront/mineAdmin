@@ -26,8 +26,8 @@
         data(){
             return {
                 userInfo: {
-                    an_name: 'test1',
-                    an_pwd: '123'
+                    an_name: '',
+                    an_pwd: ''
                 }
             }
         },
@@ -37,7 +37,8 @@
             },
             loginSuccess(data){
                 Cookie.set('access_token', data.result.token);
-                this.$store.dispatch('actionList', data.result.permission_list);
+                this.$store.dispatch('ACTION_PERMISSION_LIST', data.result.permission_list);
+                this.$store.dispatch('ACTION_SET_USERNAME', data.result.name);
                 this.$router.push('/');
             }
         }

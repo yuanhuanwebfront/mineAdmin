@@ -25,7 +25,6 @@ let $http = {
 
     uploadUrl: requestInstance._upLoadUrl,
 
-
     login(data, callback) {
         requestInstance.post('user/login', $.param(data)).then(res => {
             commonHandle(res, callback);
@@ -79,6 +78,10 @@ let $http = {
         requestInstance[method](url, params).then(res => {
             commonHandle(res, callback);
         })
+    },
+
+    getQiniuToken(params){
+        return requestInstance.get('comm/qiniu/simple', {params});
     }
 
 };

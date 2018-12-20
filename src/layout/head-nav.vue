@@ -1,13 +1,44 @@
 <template>
-    <div class="header-nav-container">
+    <div class="header-nav-container" @command="handleCommand">
         <h2 class="pull-left">Daily Yoga</h2>
-        <img class="pull-right" src="../assets/image/logo.png">
+        <el-dropdown class="pull-right">
+            <img class="el-dropdown-link" src="../assets/image/logo.png">
+            <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item @click.native="loginOut">退出账号</el-dropdown-item>
+            </el-dropdown-menu>
+        </el-dropdown>
+        <p class="pull-right user">{{userName}}</p>
     </div>
 </template>
 
 <script>
+    import Cookie from 'js-cookie';
+
     export default {
-        name: "head-nav"
+        name: "head-nav",
+        methods: {
+            handleCommand(command){
+                console.log(command);
+            },
+
+            loginOut(){
+                let vm = this;
+                this.$confirm('确定退出当前账号吗?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    Cookie.remove('access_token');
+                    vm.$store.commit('setList', []);
+                    window.location.reload();
+                })
+            }
+        },
+        computed: {
+            userName(){
+                return this.$store.state.PERMISSION.userName;
+            }
+        }
     }
 </script>
 
@@ -36,6 +67,12 @@
             margin-top: 15px;
             width: 40px;
             height: 40px;
+        }
+        p.user{
+            color: #666;
+            height: 40px;
+            line-height: 40px;
+            padding-right: 15px;
         }
     }
 </style>

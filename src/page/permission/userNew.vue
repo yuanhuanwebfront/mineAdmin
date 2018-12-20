@@ -58,7 +58,7 @@
                 this.$http.commonReq('post', 'user/edit', {an_id: id}, res => {
                     let result = res.result;
                     this.sendParams.an_name = result.Username;
-                    this.sendParams.id = id;
+                    this.sendParams.an_id = id;
                     this.sendParams.an_email = result.Email;
                     this.sendParams.role_id = result.RoleId;
                     this.sendParams.an_pwd = result.Pwd;
@@ -68,7 +68,7 @@
         },
         methods: {
             save(){
-                let url = 'user/' + (this.sendParams.id ? 'update' : 'new');
+                let url = 'user/' + (this.sendParams.an_id ? 'update' : 'new');
 
                 this.$http.commonReq('post', url, this.sendParams, res => {
                     this.$router.push({name: 'permissionUserList'});

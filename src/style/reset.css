@@ -41,8 +41,6 @@ body .el-table th.gutter{
 .margin-bottom-20{margin-bottom: 20px;}
 .margin-top-40{margin-top: 40px;}
 
-
-
 .form-content{
     margin-top: 30px;
     padding: 30px;
@@ -57,3 +55,13 @@ img.desc{
 /*  reset element style */
 .block{display: block;}
 .center{text-align: center;}
+.space{min-height: 30px;}
+.border-bottom{
+    border-bottom: 1px solid #ccc;
+}
+
+
+/*  some text style */
+.danger-text{
+    color: #f56c6c;
+}

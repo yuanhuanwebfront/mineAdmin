@@ -1,10 +1,13 @@
+const BASE_URL = '/admin/';
+
 let sessionRoutes = [
     //  课程列表tab
     {
         name: 'sessionList',
         path: 'session/list',
         meta: {
-            title: "课程列表"
+            title: "课程列表",
+            permission: BASE_URL + 'o2_yoga/list'
         },
         component: () => import('../../page/session/list.vue'),
         children: [{
