@@ -64,6 +64,9 @@ const NEW_SESSION_LIST = {
     },{
         name: '更新元素详情',
         url: BASE_URL + 'session/model/set'
+    },{
+        name: '获取图片点击类型',
+        url: BASE_URL + 'session/linkType/get'
     }]
 };
 

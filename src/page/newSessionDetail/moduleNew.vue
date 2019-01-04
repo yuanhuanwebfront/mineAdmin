@@ -104,7 +104,7 @@
                 this.sendParams.name = result.name;
                 this.sendParams.yoga_o2_session_model_info_ids = result.list.map(item => {
 
-                    this.getElementModuleList({type: item.yoga_o2_session_model_info_id});
+                    this.getElementModuleList({type: item.yoga_o2_session_model_style_id});
 
                     return {
                         type: item.yoga_o2_session_model_style_id,

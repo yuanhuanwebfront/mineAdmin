@@ -4,7 +4,7 @@
             <el-col :span="4">
                 <div class="upload-btn-box">
                     <el-button type="primary" size="small">
-                        <i class=" el-icon-upload el-icon--right "></i>{{type==='image'? '上传图片':'上传视频'}}
+                        <i class=" el-icon-upload el-icon--right "></i><slot></slot>
                     </el-button>
                     <input class="id-upload-file" :class="type" type="file" @change="changeFile($event)">
                 </div>
@@ -151,6 +151,7 @@
                 this.videoTime = undefined;
                 this.fileUrl = undefined;
                 this.hasDel = true;
+                this.$emit("delete-img");
             },
             blurVideoTime() {
                 this.$emit("upload-success", this.fileUrl);

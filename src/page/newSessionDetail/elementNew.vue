@@ -27,12 +27,35 @@
             </el-form-item>
 
             <el-form-item label="内容：">
-                <el-row v-for="(item, idx) in sendParams.content" style="padding-bottom: 5px;" class="margin-bottom-20 border-bottom">
+                <el-row v-for="(item, idx) in sendParams.content" style="padding-bottom: 20px;" class="margin-bottom-20 border-bottom">
 
                     <template v-if="sendParams.yoga_o2_session_model_style_id != 3">
                         <el-col :span="20">
-                            <upload-file :url="sendParams.content[idx]" @upload-success="setContentImg($event, idx)"></upload-file>
+                            <upload-file @delete-img="resetImg(item, 'img')" class="margin-bottom-20" :url="item.img" @upload-success="setContentImg($event, item)">上传图片</upload-file>
                         </el-col>
+
+                        <el-col :span="6" class="margin-bottom-20">
+                            <el-select clearable v-model="item.link_type" placeholder="请选择点击类型">
+                                <el-option v-for="(val, key) in clickTypeList" :value="key" :label="val"></el-option>
+                            </el-select>
+                        </el-col>
+
+                        <el-col v-show="item.link_type == 1" class="margin-bottom-20" :span="20">
+                            <upload-file @delete-img="resetImg(item, 'link_image')" :url="item.link_image" @upload-success="setDialogImg($event, item)">上传弹窗图片</upload-file>
+                        </el-col>
+
+                        <el-col :span="6" v-show="item.link_type">
+                            <el-input placeholder="请输入链接或弹窗内容" v-model="item.link_content"></el-input>
+                        </el-col>
+
+                        <el-col class="space" :span="1"></el-col>
+
+                        <el-col :span="5" v-if="sendParams.yoga_o2_session_model_style_id == 7">
+                            <el-input placeholder="请输入图标标题" v-model="item.icon_title"></el-input>
+                        </el-col>
+
+                        <el-col class="space" :span="sendParams.yoga_o2_session_model_style_id == 7 ? 1 : 8"></el-col>
+
                     </template>
 
                     <template v-if="sendParams.yoga_o2_session_model_style_id == 3">
@@ -91,12 +114,14 @@
                     direction: '',
                     content: []
                 },
-                styleList: []
+                styleList: [],
+                clickTypeList: {},
             }
         },
 
         created() {
             this.getStyleList();
+            this.getClickStyleList();
             if(this.$route.params.id){this.getElementInfo(this.$route.params.id)}
         },
 
@@ -108,14 +133,25 @@
                 this.styleList = [...result];
             },
             getElementInfo(id){
+                this.sendParams.id = id;
                 this.$http.commonReq('get', 'session/model/get', {yoga_o2_session_model_info_id: id}, this.handleElementInfo);
             },
             handleElementInfo({result}){
+                result.content.forEach(item => {
+                    item.link_type = item.link_type ? item.link_type + '' : '';
+                });
                 this.sendParams.name = result.name;
                 this.sendParams.navigation_display = result.navigation_display + '';
                 this.sendParams.yoga_o2_session_model_style_id = result.yoga_o2_session_model_style_id;
                 this.sendParams.direction = result.direction;
                 this.sendParams.content = result.content;
+            },
+            //  获取图片点击类型列表
+            getClickStyleList(){
+                this.$http.commonReq('get', 'session/linkType/get', {}, this.handleClickStyleList);
+            },
+            handleClickStyleList({result}){
+                this.clickTypeList = result;
             },
             /*      当元素类型选择为课程编排时，添加的元素为输入框     */
             addElement(){
@@ -125,7 +161,7 @@
                 }
 
                 let pushInfo = this.sendParams.yoga_o2_session_model_style_id == 3
-                    ? {title: '', subtitle: '', desc: ''} : '';
+                    ? {title: '', subtitle: '', desc: ''} : {img: '', link_type: '', link_content: '', link_image: '', icon_title: ''};
 
                 this.sendParams.content.push(pushInfo);
             },
@@ -136,19 +172,33 @@
                 this.sendParams.content = [];
             },
 
-            setContentImg(imgUrl, idx){
-                this.$set(this.sendParams.content, idx, imgUrl);
+            setContentImg(imgUrl, item){
+                item.img = imgUrl;
+            },
+
+            setDialogImg(imgUrl, item){
+                item.link_image = imgUrl;
+            },
+
+            resetImg(item, key){
+                console.log(item);
+                console.log(item[key]);
+                item[key] = '';
             },
 
             save(){
-                let params = JSON.parse(JSON.stringify(this.sendParams));
+                let url = this.$route.params.id ? 'session/model/set' : 'session/model/save',
+                    params = JSON.parse(JSON.stringify(this.sendParams));
+                params.content.forEach(item => {
+                   item.link_type = item.link_type ? parseInt(item.link_type) : 0;
+                });
                 params.content = JSON.stringify(params.content);
-                this.$http.commonReq('post', 'session/model/save', params, res => {
+                this.$http.commonReq('post', url, params, res => {
                     this.cancel();
                 })
             },
             cancel(){
-                this.$router.replace({name: 'newSessionDetailElementList'})
+                this.$router.push({name: 'newSessionDetailElementList'})
             }
         }
 
